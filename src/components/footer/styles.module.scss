@@ -1,0 +1,135 @@
+.footer{
+    position: relative;
+    margin-top: 80px;
+    background-color: #EF1B47;
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    justify-content: space-between;
+    @media only screen and (max-width:768px){
+        background-color: transparent;
+        height: 360px;
+        background-image: url("../../../public/images/footerpwaimage.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: contain;
+        width: 80%;
+        margin: 0 auto;
+    }
+    .computerfootervector{
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%,0);
+        max-width: 500px;
+        @media only screen and (max-width:768px){
+            display: none;
+        }
+    }
+    .footertop{
+        max-width: 1200px;
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 30px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        justify-content: space-between;
+        height: 80%;
+        @media only screen and (max-width:768px){
+            display: none;
+        }
+        .header{
+            display: flex;
+            justify-content: space-between;
+            direction: rtl;
+            .title{
+                position: relative;
+                color: #FFF;
+                text-align: center;
+                font-feature-settings: 'clig' off, 'liga' off;
+                font-family: "Yekan Bakh";
+                font-size: 30px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: 141%; /* 56.4px */
+                &::after{
+                    position: absolute;
+                    left: 50%;
+                    content: "";
+                    height: 3px;
+                    border-radius: 10px;
+                    background: white;
+                    width: 110%;
+                    transform: translate(-50%,0);
+                }
+            }
+        }
+    }
+    .footerbottom{
+        max-width: 1200px;
+        width: 90%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 15px;
+        @media only screen and (max-width:768px){
+            display: none;
+        }
+        &__left{
+            p{
+                color: white;
+                font-family: "Yekan Bakh";
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                text-transform: capitalize;
+            }
+        }
+        &__center{
+            display: flex;
+            gap: 30px;
+            p{
+                color: white;
+                font-family: "Yekan Bakh";
+                font-size: 16px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                text-transform: capitalize;
+            }
+        }
+        &__right{
+            display: flex;
+            gap: 20px;
+            .item{
+                width: 35px;
+                height: 35px;
+                background: white;
+                border-radius: 50%;
+            }
+        }
+    }
+    .footervector{
+        position: absolute;
+        bottom: 0px;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        background-image: url("../../../public/images/footervector.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 125px;
+        @media only screen and (max-width:768px){
+            bottom: 50px;
+            background-image: url("../../../public/images/footerpwaimage.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            height: 250px;
+        }
+    }
+}

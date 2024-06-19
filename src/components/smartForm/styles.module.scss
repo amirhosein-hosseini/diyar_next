@@ -1,0 +1,107 @@
+.questionwrapper{
+    direction: rtl;
+    input[type="radio"] {
+        display: none;
+    }
+    
+    /* Style the custom radio button container */
+    input[type="radio"] + label {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        padding-left: 30px;
+    }
+    
+    /* Add background image for unchecked state */
+    input[type="radio"] + label::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 17px;
+        height: 17px;
+        @media only screen and (max-width:768px){
+            width: 14px;
+            height: 14px;
+        }
+        background-image: url('../../../public/images/unchecked.png'); /* Specify the image URL */
+        background-size: cover; /* Adjust as needed */
+    }
+    
+    /* Add background image for checked state */
+    input[type="radio"]:checked + label::before {
+        background-image: url('../../../public/images/checked.png'); /* Specify the image URL */
+    }
+    
+    /* Optional: Style the label text */
+    input[type="radio"] + label {
+        color: #333; /* Text color */
+    }
+    
+    /* Optional: Style the label text when radio button is checked */
+    input[type="radio"]:checked + label {
+        font-weight: bold; /* Make text bold when checked */
+    }
+}
+.smartform{
+    &__bar{
+        .item{
+            p{
+                @media only screen and (max-width:768px){
+                    font-size: 5.5px;
+                }
+            }
+        }
+    }
+    &__content{
+        .planitem{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            padding-right: 40px;
+            padding-left: 40px;
+            border-radius: 8.599px;
+            background: #6C6C6C;
+            box-shadow: 0px 0.86px 6.019px 0px rgba(0, 0, 0, 0.15) inset;
+            transition: 0.3s;
+            &:hover{
+                border-radius: 8.599px;
+                background: rgba(239, 27, 71, 0.77);
+                box-shadow: 0px 0.86px 6.019px 0px rgba(0, 0, 0, 0.15) inset;
+            }
+            @media only screen and (max-width:768px){
+                gap: 10px;
+                padding-top: 9px;
+                padding-bottom: 9px;
+            }
+            p{
+                color: #FFF;
+                text-align: center;
+                font-family: "Yekan Bakh";
+                font-size: 18px;
+                font-style: normal;
+                font-weight: 700;
+                line-height: normal;
+                @media only screen and (max-width:768px){
+                    font-size: 8px;
+                }
+            }
+            img{
+                width: 110px;
+                height: 110px;
+                @media only screen and (max-width:768px){
+                    height: 35px;
+                    width: 35px;
+                }
+            }
+        }
+        
+    }
+    
+}
+
+

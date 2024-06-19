@@ -1,0 +1,167 @@
+.about{
+    &__hero{
+        background-image: url("../../../public/images/aboutbackground.png");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+        margin-top: -140px;
+        @media only screen and (max-width:768px){
+            height: 70vh;
+        }
+        .herowrapper{
+            max-width: 1200px;
+            width: 90%;
+            height: 100%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            .image{
+                max-width: 827px;
+                overflow: hidden;
+                img{
+                    object-fit: cover;
+                    width: 100%;
+                }
+            }
+        }
+    }
+    &__desc{
+        max-width: 1200px;
+        width: 90%;
+        margin: 0 auto;
+        margin-bottom: 80px;
+        margin-top: -100px;
+        display: flex;
+        justify-content: flex-end;
+        .descwrapper{
+            position: relative;
+            max-width: 1000px;
+            border-radius: 32px;
+            padding: 80px 30px;
+            background: linear-gradient(180deg, #FFF 7.65%, rgba(217, 217, 217, 0.00) 99.72%);
+            .title{
+                color: gray;
+                text-align: right;
+                font-family: "Yekan Bakh";
+                font-size: 25px;
+                font-style: normal;
+                font-weight: 300;
+                line-height: 50.8px; /* 153.939% */
+                letter-spacing: -0.52px;
+                @media only screen and (max-width:768px){
+                    font-size: 15px;
+                }
+            }
+            .desc{
+                color: #000;
+                font-family: "Yekan Bakh";
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 45px;
+                letter-spacing: -0.52px;
+                text-align: right;
+                direction: rtl;
+                @media only screen and (max-width:768px){
+                    font-size: 12px;
+                    line-height: 30px;
+                }
+            }
+            .aboutvector{
+                position: absolute;
+                left: 0;
+                top: 0;
+                img{
+                    @media only screen and (max-width:768px){
+                        width: 70px;
+                    }
+                }
+            }
+        }
+    }
+    &__team{
+        max-width: 1000px;
+        width: 90%;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4,minmax(0,1fr));
+        gap: 15px;
+        
+    }
+    &__video{
+        max-width: 1000px;
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 80px;
+        border-radius: 16px;
+        video{
+            border-radius: 16px;
+            object-fit: cover;
+            width: 100%;
+        }
+    }
+}
+
+
+.aboutteamitem{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    @media only screen and (max-width:768px){
+        gap: 8px;       
+    }
+    .image{
+        width: 100%;
+        height: 264px;
+        overflow: hidden;
+        border-radius: 30px;
+        @media only screen and (max-width:768px){
+            height: 95px;
+        }
+        img{
+            border-radius: 30px;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+    }
+    .footer{
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
+        @media only screen and (max-width:768px){
+            gap: 0px;   
+        }
+        .name{
+            color: #000;
+            text-align: center;
+            font-family: "Yekan Bakh";
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 26.358px; /* 115.385% */
+            letter-spacing: -0.457px;
+            @media only screen and (max-width:768px){
+                font-size: 12px;
+            }
+        }
+        .job{
+            color: #000;
+            font-family: "Yekan Bakh";
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 300;
+            line-height: 26.358px;
+            letter-spacing: -0.457px;
+            @media only screen and (max-width:768px){
+                font-size: 10px;
+            }
+        }
+    }
+}

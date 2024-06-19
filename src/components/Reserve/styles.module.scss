@@ -1,0 +1,24 @@
+.reserve{
+    .sendbutton{
+        button{
+            border: 1px solid #303030;
+            width: 50%;
+            border-radius: 10px;
+            transition: 0.3s;
+            &:hover{
+                background: #EF1B47;
+                color: white;
+                border: 1px solid #EF1B47;
+            }
+        }
+    }
+    .form{
+        border-radius: 63px;
+        background: #FFF;
+        box-shadow: 0px 4px 45.5px 0px rgba(0, 0, 0, 0.25);
+        @media only screen and (max-width:768px){
+            box-shadow: none;
+            background: transparent;
+        }
+    }
+}

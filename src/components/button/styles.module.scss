@@ -1,0 +1,118 @@
+.primarybtn{
+    border-radius: 6px;
+    background: #6C6C6C;
+    color: #FFF;
+    font-family: "Yekan Bakh";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20.8px; /* 80% */
+    letter-spacing: -0.52px;
+    padding: 6px 40px;
+    transition: 0.2s;
+    &:hover{
+        background: #EF1B47;
+    }
+}
+.arrowbtn{
+    display: flex;
+    gap: 10px;
+    background: transparent;
+    color: #000;   
+    text-align: center;
+    font-family: "Yekan Bakh";
+    font-size: 15.442px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    align-items: center;
+    transition: 0.2s;
+    @media only screen and (max-width:768px){
+        font-size: 10px;
+    }
+    &:hover{
+        .arrow{
+            background: #EF1B47;
+        }
+    }
+    .arrow{ 
+        width: 20px;
+        height: 20px;
+        background: #6C6C6C;
+        border-radius: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        @media only screen and (max-width:768px){
+            height: 15px;
+            width: 15px;
+        }
+        svg{
+            @media only screen and (max-width:768px){
+                width: 4px;
+                height: 7px;
+            }
+        }
+    }
+}
+.secondprimarybtn{
+    display: flex;
+    gap: 15px;
+    padding: 10px 15px;
+    border-radius: 56px;
+    background: #6C6C6C;
+    align-items: center;
+    transition: 0.2s;
+    &:hover{
+        background: #EF1B47;
+    }
+    p{
+        color: #FFF;
+        font-family: "Yekan Bakh";
+        font-size: 15px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 14.674px; /* 63.03% */
+        letter-spacing: -0.367px;
+        @media only screen and (max-width:768px){
+            font-size: 10px;
+        }
+    }
+    svg{
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.littleprimarybtn{
+    background: #6C6C6C;
+    border-radius: 8px;
+    padding: 6px 6px;
+    color: #FFF;    
+    text-align: right;
+    font-feature-settings: 'clig' off, 'liga' off;
+    font-family: "Yekan Bakh";
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 141%; /* 22.56px */
+    transition: 0.2s;
+    &:hover{
+        background: #EF1B47;
+    }
+    @media only screen and (max-width:768px){
+        font-size: 8px;
+        padding: 4px 4px;
+    }
+}
+
+
+.tag{
+    color: black;
+    font-family: "Yekan Bakh";
+    font-size: 12px;
+    font-style: normal;
+    padding: 4px;
+    border-radius: 8px;
+    background: #eee;
+}

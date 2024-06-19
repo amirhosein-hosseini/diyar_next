@@ -2,32 +2,160 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+@layer base {
+  ul, ol {
+    list-style: revert;
+  }
+}
+
+.slick-dots{
+  display: none !important;
+}
+
+
+@font-face {
+  font-family: "Yekan Bakh";
+  src: url("../../public/fonts/YekanBakh-Regular.woff2");
+}
+
+
+body{
+  overflow: hidden;
+  background: #fbf9fc;
+}
+html{
+  overflow-x: hidden;
+}
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+}
+
+*{
+  margin: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+*::before , *::after{
+  box-sizing: border-box;
+}
+body{
+  font-family: sans-serif;
+  line-height: 1.5;
+  -webkit-font-somoothing: antialiased;
+}
+button{
+  cursor: pointer;
+}
+button,input,textarea,select{
+  font: inherit;
+}
+p,h1,h2,h3,h4,h5,h6{
+  overflow-wrap: break-word;
+}
+p{
+  direction: rtl;
+}
+p,h1,h2,h3,h4,h5,h6,button,li,input,label,a{
+  font-family: "Yekan Bakh";
+}
+img,video,canvas,svg{
+  max-width: 100%;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
+button{
+  border: none;
+  outline: none;
+}
+h1 {
+  font-size: 2em; /* or any size you prefer */
+  direction: rtl;
+}
+
+h2 {
+  font-size: 1.75em; /* or any size you prefer */
+  direction: rtl;
+}
+
+h3 {
+  font-size: 1.5em; /* or any size you prefer */
+  direction: rtl;
+}
+
+h4 {
+  font-size: 1.25em; /* or any size you prefer */
+  direction: rtl;
+}
+
+h5 {
+  font-size: 1em; /* or any size you prefer */
+  direction: rtl;
+}
+
+h6 {
+  font-size: 0.875em; /* or any size you prefer */
+  direction: rtl;
+}
+ul{
+  direction: rtl;
+}
+/* ul {
+  list-style: disc;
+  margin-left: 1.5rem;
+  padding-left: 1rem;
+  padding-right: 20px;
+} */
+
+
+#tsparticles{
+  position: absolute;
+  height: 70%;
+  z-index: 5;
+  width: 100%;
+}
+
+tr{
+  font-family: "Yekan Bakh";
+}
+td{
+  border: 1px solid;
+}
+
+ul{
+  direction: rtl !important;
+  margin-right: 20px;
+}
+ol{
+  direction: rtl;
+  margin-right: 20px;
+}
+
+
+
+tr.red td , tr.red th{
+  background: #EF1B47 !important;
+  color: white;
+}
+
+tr.point{
+  border-right: 4px solid #EF1B47 !important;
+  background: #eee;
+}
+
+table.table{
+  border-radius: 10px;
+  margin-left: auto;
+}
+table.table td{
+  padding: 10px;
 }

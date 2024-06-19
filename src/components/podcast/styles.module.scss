@@ -1,0 +1,155 @@
+.podcastwrapper{
+    height: 100vh;
+    background-image: url("../../../public/images/podcastbackground.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow-y: scroll;
+    scrollbar-width: none; /* hide scrollbar for Firefox */
+    -ms-overflow-style: none;
+    margin-top: -120px;
+    padding-top: 120px;
+    margin-bottom: -100px;
+}
+.podcast{
+    max-width: 1200px;
+    width: 90%;
+    margin: 0 auto;
+    @media only screen and (max-width:768px){
+        margin-top: 100px;
+    }
+    &__vector{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    &__header{
+        .title{
+            color: #000;
+            text-align: right;
+            font-family: "Yekan Bakh";
+            font-size: 25.408px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 66.061px; /* 260% */
+            letter-spacing: -1.652px;
+            @media only screen and (max-width:768px){
+                font-size: 20px;
+            }
+        }
+        .desc{
+            color: #000;
+            font-family: "Yekan Bakh";
+            text-align: right;
+            margin-left: auto;
+            font-size: 25.408px;
+            font-style: normal;
+            font-weight: 300;
+            line-height: 47.005px;
+            max-width: 800px;
+            direction: rtl;
+            @media only screen and (max-width:768px){
+                font-size: 15px;
+                line-height: 30px;
+            }
+        }
+    }
+    &__list{
+        max-width: 700px;
+        margin-right: auto;
+        margin-top: 80px;
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+    }
+}
+
+
+.musicplayer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    &__header{
+        display: flex;
+        align-items: center;
+        justify-content:space-between;
+        .info{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            .image{
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                overflow: hidden;
+                @media only screen and (max-width:768px){
+                    width: 40px;
+                    height: 40px;
+                }
+                img{
+                    object-fit: cover;
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    @media only screen and (max-width:768px){
+                        width: 40px;
+                        height: 40px;
+                    }
+                }
+            }
+            .desc{
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                @media only screen and (max-width:768px){
+                    gap: 2px;
+                }
+                .title{
+                    color: #6C6C6C;
+                    font-family: "Yekan Bakh";
+                    font-size: 18px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: normal;
+                    text-transform: capitalize;
+                    @media only screen and (max-width:768px){
+                        font-size: 12px;
+                    }
+                }
+                .name{
+                    color: #7F8489;
+                    font-family: "Yekan Bakh";
+                    font-size: 16px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: normal;
+                    text-transform: capitalize;
+                    @media only screen and (max-width:768px){
+                        font-size: 10px;
+                    }
+                }
+            }
+        }
+        .buttons{
+            width: 40px;
+            height: 40px;
+            button{
+                background: transparent;
+                svg{
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+        }
+    }
+    &__audio{
+        .volume{
+            display: none;
+        }
+        .duration{
+            width: 100%;
+            height: 3px;
+        }
+    }
+}
