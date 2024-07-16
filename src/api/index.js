@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import { domain } from "./domain";
+import { domain, prefix } from "./domain";
 
 export const getAllHomeContents = async () => {
     try {
@@ -55,7 +55,7 @@ export const getAllHomePartners = async () => {
 
 export const getAllFeedBacks = async () => {
     try {
-        const response = await axios.get(domain + "api/" + 'home/feedback/');
+        const response = await axios.get(domain + prefix + "website/" + 'testimonials');
         
 
         if (response.status === 200) {

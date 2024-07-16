@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
-import { domain } from "./domain";
+import { domain, prefix } from "./domain";
 
 export const getAllBlogs = async () => {
     try {
-        const response = await axios.get(domain + "api/" + 'journal/list');
+        const response = await axios.get(domain + prefix + "website/" + 'blogs?per_page=all');
         
 
         if (response.status === 200) {
@@ -36,7 +36,7 @@ export const getFavoriteBlogs = async (limit) => {
 
 export const showBlog = async (slug) => {
     try {
-        const response = await axios.get(domain + "api/" + 'journal?journal_slug=' + slug);
+        const response = await axios.get(domain + prefix + "website/" + 'blogs/' + slug);
         
 
         if (response.status === 200) {

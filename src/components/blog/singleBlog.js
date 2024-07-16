@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import BlogItem from "../index/blogItem";
 import { Tag } from "../button";
-import { getFavoriteBlogs, showBlog } from "../../api/blog";
+import { getAllBlogs, getFavoriteBlogs, showBlog } from "../../api/blog";
 import { domain } from "../../api/domain";
 import { useRouter } from "next/router";
 import Head from "next/head";
@@ -19,7 +19,7 @@ const SingleBlog = () => {
         const fetchData = async () => {
           try {
             const data = await showBlog(router.query.slug);
-            setData(data?.data);
+            setData(data?.data?.data);
           } catch (error) {
             console.error("Error fetching data:", error);
           }
@@ -27,21 +27,27 @@ const SingleBlog = () => {
     
         fetchData();
     }, [router.query.slug]);
-
 
 
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const data = await getFavoriteBlogs(3);
-            setFavoriteBlogs(data?.data);
+            const data = await getAllBlogs();
+            setFavoriteBlogs(data?.data?.data);
           } catch (error) {
             console.error("Error fetching data:", error);
           }
         };
     
         fetchData();
-    }, [router.query.slug]);
+    }, []);
+
+
+    const handleGo = (slug) => {
+        router.push("/blog/" + slug);
+        window.location.reload();
+    };
+
     
 
 
@@ -64,31 +70,34 @@ const SingleBlog = () => {
                 <meta name="description" content={data?.meta_description} />
                 <meta name="title" content={data?.meta_title} />
             </Head>
-            <div className={styles.singleblog}>
+            <div className={styles.singleblog + " mt-10"} style={{marginTop: "50px"}}>
                 <div className={styles.singleblog__left}>
-                    <div className={styles.related}>
+                    <div className={styles.left + " p-5 rounded-xl flex flex-col gap-3"}>
+                        <p className="text-lg font-bold">آخرین مطالب</p>
                         {favoriteBlogs?.map((item) => (
-                            <BlogItem banner={item?.banner} content={item?.content} created={item?.created} id={item?.id} slug={item?.slug} title={item?.title} />
+                            <p key={item.slug} className="text-[#EF1B47] text-right cursor-pointer" style={{ direction: "rtl" }} onClick={() => handleGo(item?.id)}>
+                                {item?.title}
+                            </p>
                         ))}
                     </div>
                 </div>
                 <div className={styles.singleblog__right}>
                     <div className={styles.hero}>
-                        <img src={domain + data?.banner.substring(1)} alt="image" />
+                        <img src={data?.thumb} alt="image" />
                     </div>
                     <div className={styles.title}>
                         <p>
                             {data?.title}
                         </p>
                     </div>
-                    <div className={styles.desc} dangerouslySetInnerHTML={{ __html: data?.content}}></div>
-                    <div className={styles.tags}>
+                    <div className={styles.desc} dangerouslySetInnerHTML={{ __html: data?.body}}></div>
+                    {/* <div className={styles.tags}>
                         {data?.tag?.map((item) => (
                             <Tag>
                                 {item}
                             </Tag>
                         ))}
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </>

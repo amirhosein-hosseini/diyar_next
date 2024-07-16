@@ -1,44 +1,56 @@
 import React from "react";
 import styles from "./styles.module.scss";
 import AboutTeamItem from "./aboutTeamItem";
+import AboutSlider from "../slider/aboutSlider";
 
 const About = () => {
     return(
-        <div className={styles.about}>
-            <div className={styles.about__hero}>
-                <div className={styles.herowrapper}>
-                    <div className={styles.image}>
-                        <img src="../../images/aboutheroimage.png" alt="image" />
+        <div className={styles.about + " mt-20"}>
+            <section className="container max-w-5xl w-11/12 mx-auto ">
+                <div className="rounded-lg bg-[#3F3F3F] p-5">
+                    <div className="flex items-center gap-8 w-full justify-end mb-8">
+                        <p className="text-white text-2xl">
+                            سازمان مهاجرتی دیار دفتر ایران ، تهران 
+                        </p>
+                        <div>
+                            <img src="../../images/iran.png" alt="image" />
+                        </div>
+                    </div>
+                    <div className="flex items-start gap-5">
+                        <div className="w-2/12 flex flex-col gap-3">
+                            <div className="w-full overflow-hidden">
+                                <img className="object-cover w-full" src="../../images/aboutgalleryitem.png" alt="image" />
+                            </div>
+                            <div className="w-full overflow-hidden">
+                                <img className="object-cover w-full" src="../../images/aboutgalleryitem.png" alt="image" />
+                            </div>
+                            <div className="w-full overflow-hidden">
+                                <img className="object-cover w-full" src="../../images/aboutgalleryitem.png" alt="image" />
+                            </div>
+                        </div>
+                        <div className="w-10/12">
+                            <div>
+                                <img src="../../images/samplevideo.png" alt="image" />
+                            </div>
+                            <p className="text-white text-xs leading-5 mt-6">
+                                یکی از راه‌های مهاجرت به کانادا اقدام از طریق ویزای ICT کانادا است. ICT مخفف Intra-Company Transfer به معنای انتقال درون شرکتی است. این روش مهاجرتی یکی از زیرگروه‌های برنامه‌ جابجایی بین‌المللی IMP کانادا است.
+                                طبق برنامه انتقال درون شرکتی کانادا، کسب‌ و کارهای بین‌المللی که دارای یک شرکت مادر، شعب، شرکت‌های فرعی یا وابسته در کانادا هستند، می‌توانند کارکنان کلیدی خود در خارج از کانادا را از طریق ویزای ICT کانادا یا همان انتقال بین شرکتی به کانادا منتقل کنند.
+                                اگر در شرکتی بین‌المللی مشغول به کار هستید و شغلی کلیدی دارید، ویزای انتقال درون‌ شرکتی کانادا می‌تواند مسیر مناسبی برای مهاجرت شما به کانادا باشد.
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className={styles.about__desc}>
-                <div className={styles.descwrapper}>
-                    <div className={styles.aboutvector}>
-                        <img src="../../images/aboutvector.png" alt="vector" />
-                    </div>
-                    <p className={styles.title}>
-                        ما بهترین خدمات را ارائه می دهیم
-                    </p>
-                    <p className={styles.desc}>
-                        تصمیم به مهاجرت تصمیمی توام با امید و نگرانی است. از این رو سوالات بسیاری در این مسیر برای موکلان ما ایجاد می شود. ما نیز این روزها را سپری کرده ایم و نگرانی های شما را می شناسیم. پرونده شما پس از بررسی و بازنگرهای متعدد و با اطمینان خاطر به اداره مهاجرت ارسال خواهد شد. ما معتقدیم موفقیت شما رمز موفقیت ماست.
-                    </p>
+                <div className="mt-4">
+                    <button className="px-5 py-3 font-bold text-sm border-2 border-[#EF1B47] rounded-lg">
+                        فرم ارزیابی  هوشمند  
+                    </button>
                 </div>
-            </div>
-            <div className={styles.about__team}>
-                <AboutTeamItem />
-                <AboutTeamItem />
-                <AboutTeamItem />
-                <AboutTeamItem />
-                <AboutTeamItem />
-                <AboutTeamItem />
-                <AboutTeamItem />
-                <AboutTeamItem />
-            </div>
-            <div className={styles.about__video + " flex justify-center items-center"}>
-                <a target="_blank" href="https://maps.google.com/maps?ll=43.838839,-79.381471&z=16&t=m&hl=en&gl=US&mapclient=embed&q=55%20Commerce%20Valley%20Dr%20W%20Thornhill%2C%20ON%20L3T%207V9%20Canada">
-                    <img src="../../images/map.png" alt="map" />
-                </a>
+            </section>
+            <div className="mt-20 py-20">
+                <p className="font-bold text-2xl text-center mb-10">
+                    همکاران ما 
+                </p>
+                <AboutSlider />
             </div>
         </div>
     )

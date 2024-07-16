@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 import { domain } from "../../api/domain";
 
 
-function MusicPlayer({ data }) {
+function MusicPlayer({ title , image , desc , voice }) {
   const audioRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(1);
@@ -49,14 +49,14 @@ function MusicPlayer({ data }) {
             <div className={styles.musicplayer__header}>
                 <div className={styles.info}>
                     <div className={styles.image}>
-                        <img src={domain + data?.image.substring(1)} alt='image' />
+                        <img src={image} alt='image' />
                     </div>
                     <div className={styles.desc}>
                         <p className={styles.title}>
-                          {data?.title}
+                          {title}
                         </p>
                         <p className={styles.name}>
-                            {data?.sub_title}
+                          {desc}
                         </p>
                     </div>
                 </div>
@@ -65,7 +65,7 @@ function MusicPlayer({ data }) {
                 </div>
             </div>
             <div className={styles.musicplayer__audio}>
-                <audio ref={audioRef} src={domain + data?.voice?.substring(1)}></audio>
+                <audio ref={audioRef} src={voice}></audio>
                 <input
                     className={styles.volume}
                     type="range"

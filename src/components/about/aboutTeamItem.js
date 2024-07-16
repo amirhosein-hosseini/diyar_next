@@ -3,7 +3,7 @@ import styles from "./styles.module.scss";
 
 const AboutTeamItem = () => {
     return(
-        <div className={styles.aboutteamitem}>
+        <div className={styles.aboutteamitem + " p-3"}>
             <div className={styles.image}>
                 <img src="../../images/aboutitem.png" alt="image" />
             </div>

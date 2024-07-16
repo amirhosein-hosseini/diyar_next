@@ -1,1 +1,2 @@
-export const domain = "https://api.hamidehsakak.com/";
+export const domain = "https://stage.hamidehsakak.com/";
+export const prefix = "api/v1/"

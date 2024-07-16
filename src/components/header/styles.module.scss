@@ -1,6 +1,5 @@
 .largeheader{
     padding-top: 10px;
-    margin-bottom: 30px;
     position: relative;
     transition: 0.3s;
     &:hover{
@@ -133,8 +132,8 @@
     border: 1px solid #eee;
     box-shadow: -2px -6px 17.1px 0px rgba(0, 0, 0, 0.17);
     z-index: 20;
-    left: 50%;
-    transform: translate(-50%,0);
+    right: 0;
+    background: #414141;
     .header{
         .content{
             &::after{

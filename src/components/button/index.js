@@ -54,3 +54,19 @@ export const GreenButton = ({children}) => {
         </button>
     )
 }
+
+export const LoginRedButton = ({children}) => {
+    return(
+        <button className={styles.loginRedButton + " bg-[#EF1B47] text-white px-4 py-[7px] w-full"}>
+            {children}
+        </button>
+    )
+}
+
+export const LoginOutlineButton = ({children}) => {
+    return(
+        <button className={styles.loginRedButton + " text-black border border-black px-4 py-[7px] w-full"}>
+            {children}
+        </button>
+    )
+}

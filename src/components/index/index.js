@@ -9,7 +9,7 @@ import Partners from "./partners";
 import Testimonial from "./testimonial";
 import { getAllFeedBacks, getAllHomeBenefit, getAllHomeContents, getAllHomePartners } from "../../api";
 import { domain } from "../../api/domain";
-import { getFavoriteBlogs } from "../../api/blog";
+import { getAllBlogs, getAllMyBlogs, getFavoriteBlogs } from "../../api/blog";
 import { getAllProgramItemsCategory } from "../../api/programs";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -17,6 +17,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import IndexBanner from "../banner/indexBanner";
 import Link from "next/link";
+import SampleItem from "../sample/sampleItem";
+import BlogItem from "./blogItem";
+import AnimatedNumber from "../animation/animatedNumber";
+import { getAllSamples } from "../../api/samples";
+import { getAllPlans } from "../../api/plans";
 
 const HomePage = () => {
 
@@ -24,15 +29,23 @@ const HomePage = () => {
     const [homeBenefit , setHomeBenefit] = useState(null);
     const [homePartners , setHomePartners] = useState(null);
     const [feedBack , setFeedBack] = useState(null);
-    const [favoriteBlogs , setFavoriteBlogs] = useState(null);
+    const [blogs , setBlogs] = useState(null);
     const [programsList , setProgramsList] = useState(null);
     const [isMobile, setIsMobile] = useState(false);
     const [email , setEmail] = useState(null);
+    const [samples , setSamples] = useState(null);
+    const [plans , setPlans] = useState(null);
+    const [onePlan , setOnePlan] = useState(null);
+    const [secondPlan , setSecondPlan] = useState(null);
+    const [thirdPlan , setThirdPlan] = useState(null);
+    const [otherPlans , setOtherPlans] = useState([]);
 
 
     const handleInputChange = (event) => {
         setEmail(event.target.value);
     };
+
+    console.log(blogs)
 
 
 
@@ -61,11 +74,41 @@ const HomePage = () => {
     }, []);
 
     
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //       try {
+    //         const data = await getAllHomeContents();
+    //         setHomeContents(data?.data?.home[0]);
+    //       } catch (error) {
+    //         console.error("Error fetching data:", error);
+    //       }
+    //     };
+    
+    //     fetchData();
+    // }, []);
+
+
+
+
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const data = await getAllHomeContents();
-            setHomeContents(data?.data?.home[0]);
+            const data = await getAllSamples();
+            setSamples(data?.data?.data);
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        };
+    
+        fetchData();
+    }, []);
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const data = await getAllBlogs();
+            setBlogs(data?.data?.data);
           } catch (error) {
             console.error("Error fetching data:", error);
           }
@@ -79,8 +122,9 @@ const HomePage = () => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const data = await getAllHomeBenefit();
-            setHomeBenefit(data?.data);
+            const data = await getAllPlans();
+            setPlans(data?.data?.data);
+            
           } catch (error) {
             console.error("Error fetching data:", error);
           }
@@ -88,20 +132,52 @@ const HomePage = () => {
     
         fetchData();
     }, []);
-
 
     useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const data = await getAllHomePartners();
-            setHomePartners(data?.data?.partner_logo);
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          }
-        };
+        plans?.map((item) => {
+            if(item?.index_position === "1"){
+                setOnePlan(item);
+            }
+            else if(item?.index_position === "2"){
+                setSecondPlan(item)
+            }
+            else if(item?.index_position === "3"){
+                setThirdPlan(item)
+            } else{
+                otherPlans.push(item)
+            }
+        })
+    } , [plans])
+
+
+
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //       try {
+    //         const data = await getAllHomeBenefit();
+    //         setHomeBenefit(data?.data);
+    //       } catch (error) {
+    //         console.error("Error fetching data:", error);
+    //       }
+    //     };
     
-        fetchData();
-    }, []);
+    //     fetchData();
+    // }, []);
+
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //       try {
+    //         const data = await getAllHomePartners();
+    //         setHomePartners(data?.data?.partner_logo);
+    //       } catch (error) {
+    //         console.error("Error fetching data:", error);
+    //       }
+    //     };
+    
+    //     fetchData();
+    // }, []);
 
 
 
@@ -109,7 +185,7 @@ const HomePage = () => {
         const fetchData = async () => {
           try {
             const data = await getAllFeedBacks();
-            setFeedBack(data?.data?.feedback);
+            setFeedBack(data?.data?.data);
           } catch (error) {
             console.error("Error fetching data:", error);
           }
@@ -120,32 +196,24 @@ const HomePage = () => {
 
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const data = await getFavoriteBlogs(4);
-            setFavoriteBlogs(data?.data);
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          }
-        };
-    
-        fetchData();
-    }, []);
 
 
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            const data = await getAllProgramItemsCategory();
-            setProgramsList(data?.data);
-          } catch (error) {
-            console.error("Error fetching data:", error);
-          }
-        };
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //       try {
+    //         const data = await getAllProgramItemsCategory();
+    //         setProgramsList(data?.data);
+    //       } catch (error) {
+    //         console.error("Error fetching data:", error);
+    //       }
+    //     };
     
-        fetchData();
-    }, []);
+    //     fetchData();
+    // }, []);
+
+
+
+
 
 
 
@@ -164,146 +232,311 @@ const HomePage = () => {
       };
 
 
+
+
     
  
 
     return(
         <>
-            {isMobile === false ? <Hero data={homeContents} /> : ""}
-            {isMobile === true ?
-            <>
-                <Plans data={programsList} />
-                {/* <HomeSlider data={favoriteBlogs} /> */}
-                <Points data={homeBenefit} image={homeContents?.founder_image} />
-                <div className={styles.smartstart}>
-                    <div className={styles.smartstart__desc}>
-                        <div className={styles.desc}>
-                            <div className={styles.image}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none">
-                                    <path d="M51.0141 0.166664H20.9858C7.94246 0.166664 0.166626 7.9425 0.166626 20.9858V50.9783C0.166626 64.0575 7.94246 71.8333 20.9858 71.8333H50.9783C64.0216 71.8333 71.7975 64.0575 71.7975 51.0142V20.9858C71.8333 7.9425 64.0575 0.166664 51.0141 0.166664ZM59.3275 40.2642C59.3275 42.4142 57.6791 43.4892 55.7083 42.6292L43.7041 37.4692C42.3066 36.8958 41.1958 37.6125 41.1958 39.1175V45.7467C41.1958 46.32 41.5183 47.1442 41.9483 47.5742L47.825 53.4867C48.4341 54.0958 48.7208 55.3142 48.4341 56.1383L47.2875 59.5783C46.7858 61.0833 45.0658 61.8 43.6683 61.0833L37.6841 55.995C36.7525 55.2425 35.2475 55.2425 34.3516 55.995L28.3316 61.0833C26.8983 61.8 25.2141 61.0833 24.7125 59.5425L23.5658 56.1025C23.2791 55.2783 23.5658 54.06 24.175 53.4508L30.1591 47.5742C30.5533 47.18 30.9116 46.3558 30.9116 45.7467V39.1175C30.9116 37.6125 29.765 36.86 28.4033 37.4692L16.3991 42.6292C14.3925 43.4892 12.78 42.4142 12.78 40.2642V36.9317C12.78 35.2117 14.1058 33.205 15.6825 32.5242L29.8008 26.4325C30.3741 26.1817 30.8758 25.4292 30.8758 24.7842V17.3667C30.8758 14.93 32.6316 12.0275 34.8175 10.9525C35.6058 10.5583 36.5016 10.5583 37.29 10.9525C39.44 12.0633 41.2316 14.93 41.2316 17.3667V24.7842C41.2316 25.4292 41.6975 26.1817 42.3066 26.4325L56.425 32.5242C58.0375 33.205 59.3275 35.2117 59.3275 36.9317V40.2642Z" fill="#292D32"/>
-                                </svg>
+            <Hero />
+
+
+
+            <div className="container max-w-7xl w-11/12 mx-auto flex flex-col items-center justify-center gap-20 mt-20">
+                <div className="flex flex-col items-center justify-center gap-5">
+                    <p className="font-bold text-3xl">
+                        رتبه <span className="text-[65px] text-[#EF1B47]">یک</span> قبولی ویزا 
+                    </p>
+                    <p className="text-lg">
+                        منتظر شما هستیم در کانادا    
+                    </p>
+                </div>
+                <div>
+                    <img src="../../images/rank.png" alt="image" />
+                </div>
+                <div className="flex items-center gap-4">
+                    <button className="px-5 py-3 font-bold text-sm border-2 border-[#EF1B47] rounded-lg">
+                        فرم ارزیابی  رایگان 
+                    </button>
+                    <Link href={"/reserve"}>
+                        <button className="px-5 py-3 font-bold text-sm border-2 border-[#EF1B47] rounded-lg">
+                            رزرو وقت مشاوره 
+                        </button>
+                    </Link>
+                    <button className="px-5 py-3 font-bold text-sm border-2 border-[#EF1B47] rounded-lg">
+                        فرم ارزیابی  هوشمند  
+                    </button>
+                </div>
+            </div>
+
+
+            <div className="mt-20">
+                <p className="text-center font-bold text-2xl mb-10">
+                    برنامه های مهاجرتی
+                </p>
+                <div className="container max-w-7xl w-11/12 mx-auto">
+                    <Link href={"/plan/" + onePlan?.id}>
+                        <div className="rounded-xl overflow-hidden" data-aos="zoom-in" data-aos-duration="1500">
+                            <div className="w-full overflow-hidden">
+                                <img className="object-cover w-full" src={onePlan?.banner} alt="image" />
                             </div>
-                            <p>
-                                شروعی هوشمند 
-                            </p>
+                            <div className="bg-[#545454] text-white p-8">
+                                <p className="text-xs leading-5 w-8/12 ml-auto">
+                                    {onePlan?.description}
+                                </p>
+                                <div className="mr-auto flex justify-start">
+                                    <p className="text-sm mr-auto flex">
+                                        اطلاعات بیشتر 
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div className={styles.btn}>
-                            <Link herf={"/smart-form"}>
-                                <PrimaryBtn>
-                                    فرم ارزیابی  رایگان 
-                                </PrimaryBtn>
-                            </Link>
+                    </Link>
+
+                    <div className="flex mt-5">
+                        <Link href={"/plan/" + secondPlan?.id } className="w-1/2 bg-[#545454] p-6 text-white text-center flex flex-col gap-3 rounded-tl-xl">
+                            <p className="text-3xl font-bold">
+                                {secondPlan?.en_title}
+                            </p>
+                            <p className="text-sm p-1 bg-[#EF1B47] rounded-lg py-2">
+                                بهترین روش های مهاجرت از طریق برنامه {secondPlan?.title}
+                            </p>
+                            <p className="text-xs leading-5">
+                                {secondPlan?.description}
+                            </p>
+                        </Link>
+
+                        <Link href={"/plan/" + thirdPlan?.id} className="w-1/2 bg-[#EF1B47] p-6 text-white text-center flex flex-col gap-3 rounded-tr-xl">
+                            <div className="flex gap-3 items-center justify-center">
+                                <p className="text-3xl font-bold">
+                                    {thirdPlan?.title}
+                                </p>
+                                <p>
+                                    برنامه مهاجرتی 
+                                </p>
+                            </div>
+                            <p className="text-xs leading-5">
+                                {thirdPlan?.description}
+                            </p>
+                        </Link>
+                    </div>
+                    <div className="bg-[#545454] p-6 rounded-bl-xl rounded-br-xl w-full">
+                        <div className="text-white text-center flex justify-between w-10/12 mx-auto">
+                            <div className="flex flex-col gap-3 items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M32.291 29.8427L23.9577 36.461V39.7203C23.9577 40.1156 24.3808 40.3668 24.7279 40.1775L29.8481 37.3847C31.354 36.5633 32.291 34.9849 32.291 33.2695V29.8427ZM20.8327 36.3538L13.6461 29.1672H10.2796C7.51224 29.1672 5.75381 26.2051 7.07898 23.7756L9.87183 18.6554C11.2408 16.1455 13.8714 14.5839 16.7304 14.5839H22.7118C28.1474 8.7995 34.217 4.87356 42.0646 4.25319C44.1695 4.08679 45.9131 5.83042 45.7467 7.93532C45.1264 15.7829 41.2004 21.8525 35.416 27.2881V33.2695C35.416 36.1285 33.8544 38.7591 31.3445 40.1281L26.2243 42.9209C23.7948 44.2461 20.8327 42.4877 20.8327 39.7203V36.3538ZM20.1572 17.7089H16.7304C15.015 17.7089 13.4367 18.6459 12.6153 20.1518L9.82241 25.272C9.6331 25.6191 9.8843 26.0422 10.2796 26.0422H13.5389L20.1572 17.7089ZM4.16602 39.9891C4.16602 36.761 6.78287 34.1442 10.0109 34.1442C13.239 34.1442 15.8558 36.761 15.8558 39.9891C15.8558 43.2171 13.239 45.834 10.0109 45.834H7.81185C5.79831 45.834 4.16602 44.2017 4.16602 42.1881V39.9891Z" fill="white"/>
+                                </svg>
+                                <p className="text-xs">
+                                    شرایط متقاضی ویزای استارت آپ کانادا
+                                </p>
+                            </div>
+                            <div className="flex flex-col gap-3 items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 56 56" fill="none">
+                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M27.9961 6.34521C28.073 5.38178 28.9164 4.66311 29.8798 4.74002C41.888 5.69861 51.3327 15.7448 51.3327 27.9986C51.3327 40.8852 40.886 51.3319 27.9993 51.3319C15.1127 51.3319 4.66602 40.8852 4.66602 27.9986C4.66602 18.8345 9.94921 10.9076 17.6279 7.09162C18.4935 6.66149 19.5438 7.01445 19.9739 7.87996C20.404 8.74547 20.0511 9.79579 19.1856 10.2259C12.6508 13.4734 8.16602 20.2139 8.16602 27.9986C8.16602 38.9522 17.0457 47.8319 27.9993 47.8319C38.953 47.8319 47.8327 38.9522 47.8327 27.9986C47.8327 17.5844 39.8049 9.04346 29.6013 8.22892C28.6378 8.15201 27.9192 7.30864 27.9961 6.34521ZM28.0056 14.6939C28.1319 13.7357 29.0111 13.0613 29.9693 13.1877C37.29 14.1531 42.9392 20.4147 42.9392 27.9986C42.9392 36.2496 36.2504 42.9384 27.9993 42.9384C19.7483 42.9384 13.0595 36.2496 13.0595 27.9986C13.0595 25.7772 13.5455 23.6646 14.4185 21.7652C14.8222 20.887 15.8613 20.5023 16.7395 20.906C17.6177 21.3097 18.0023 22.3488 17.5987 23.2269C16.9321 24.6771 16.5595 26.292 16.5595 27.9986C16.5595 34.3166 21.6813 39.4384 27.9993 39.4384C34.3174 39.4384 39.4392 34.3166 39.4392 27.9986C39.4392 22.1939 35.1142 17.3965 29.5117 16.6577C28.5535 16.5313 27.8792 15.6521 28.0056 14.6939ZM28.11 22.8926C28.461 21.9921 29.4755 21.5466 30.3761 21.8976C32.8136 22.8477 34.5456 25.2187 34.5456 27.9986C34.5456 31.614 31.6148 34.5449 27.9993 34.5449C24.3839 34.5449 21.4531 31.614 21.4531 27.9986C21.4531 27.0321 22.2366 26.2486 23.2031 26.2486C24.1696 26.2486 24.9531 27.0321 24.9531 27.9986C24.9531 29.681 26.3169 31.0449 27.9993 31.0449C29.6818 31.0449 31.0456 29.681 31.0456 27.9986C31.0456 26.709 30.2437 25.6025 29.105 25.1586C28.2045 24.8076 27.759 23.7931 28.11 22.8926Z" fill="white" />
+                                </svg>
+                                <p className="text-xs">
+                                    موفق شدید نامه ساپورت بگیرید؟‌
+                                </p>
+                            </div>
+                            <div className="flex flex-col gap-3 items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="51" height="51" viewBox="0 0 51 51" fill="none">
+                                    <path d="M20.9113 7.78456C22.3817 5.65437 24.8383 4.25 27.625 4.25C30.4117 4.25 32.8683 5.65437 34.3387 7.78456C34.7346 8.35812 35.4064 8.69451 35.972 8.67184C36.1109 8.66627 36.2505 8.66346 36.3906 8.66346C42.1224 8.66346 46.75 13.3394 46.75 19.0841C46.75 22.9679 44.6364 26.3579 41.503 28.1493C41.3036 28.2632 41.138 28.4299 41.0262 28.6285C39.251 31.78 35.8811 33.9183 32.0078 33.9183C30.8687 33.9183 29.7695 33.7327 28.7404 33.3889C28.1115 33.1788 27.196 33.383 26.6009 33.9375C25.1463 35.2928 23.1942 36.125 21.0508 36.125C16.5293 36.125 12.8828 32.437 12.8828 27.9111C12.8828 27.6996 12.7841 27.5268 12.6681 27.4397C10.139 25.5408 8.5 22.5032 8.5 19.0841C8.5 13.3394 13.1276 8.66346 18.8594 8.66346C18.9995 8.66346 19.1391 8.66627 19.278 8.67184C19.8436 8.69451 20.5154 8.35812 20.9113 7.78456Z" fill="white" />
+                                    <path d="M4.25 40.375C4.25 36.8542 7.10418 34 10.625 34C14.1458 34 17 36.8542 17 40.375C17 43.8958 14.1458 46.75 10.625 46.75C7.10418 46.75 4.25 43.8958 4.25 40.375Z" fill="white" />
+                                </svg>
+                                <p className="text-xs">
+                                    ایده عالی و خلاقانه دارید؟
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <div className={styles.smartstart__video}>
-                        {homeContents?.founder_video && (
-                            <video controls>
-                                <source src={domain + homeContents?.founder_video.substring(1)} type="video/mp4" />
-                            </video>
-                        )}
+                    {otherPlans.length > 0 ? 
+                        <>
+                            <div className="flex items-center justify-center mt-20 rounded-tr-xl rounded-tl-xl pb-[30px]" style={{ background: "rgba(217, 217, 217, 0.50)" }}>
+                                <div className="flex items-center gap-2 mt-[-30px]">
+                                    {otherPlans?.map((item) => (
+                                        <div className="p-6 border border-black rounded-lg flex flex-col gap-2 items-center justify-center relative bg-white">
+                                            <p className="text-xl text-[#EF1B47] font-bold">
+                                                {item?.title}
+                                            </p>
+                                            <p className="text-[7px]">
+                                                {item?.description}
+                                            </p>
+                                            <p className="absolute bottom-1 left-1 text-[7px] font-bold">
+                                                اطلاعات بیشتر
+                                            </p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        </> : ""
+                    }
+
+
+                </div>
+            </div>
+
+
+
+            <div className="container w-11/12 max-w-7xl mx-auto mt-20">
+                <p className="text-center font-bold text-2xl">
+                    نمونه های موفق 
+                </p>
+                <div className="mt-10 flex items-center gap-4" style={{direction:"rtl"}}>
+                    {samples?.map((item) => (
+                        <SampleItem title={item?.title} desc={item?.description} image={item?.banner} slug={item?.id} />
+                    ))}
+                </div>
+            </div>
+
+
+
+
+            <div className="bg-[#545454] mt-20 py-10">
+                <div className="container max-w-5xl w-11/12 mx-auto flex items-center justify-between">
+                    <div className="flex flex-col justify-center items-center gap-1">
+                        <p className="font-bold text-[50px] text-white">
+                            <AnimatedNumber value={234} />
+                        </p>
+                        <p className="text-sm text-white">
+                            رزرو مشاوره     
+                        </p>
+                    </div>
+                    <div className="flex flex-col justify-center items-center gap-1">
+                        <p className="font-bold text-[50px] text-white">
+                            <AnimatedNumber value={234} />
+                        </p>
+                        <p className="text-sm text-white">
+                            رزرو مشاوره     
+                        </p>
+                    </div>
+                    <div className="flex flex-col justify-center items-center gap-1">
+                        <p className="font-bold text-[50px] text-white">
+                            <AnimatedNumber value={234} />
+                        </p>
+                        <p className="text-sm text-white">
+                            رزرو مشاوره     
+                        </p>
+                    </div>
+                    <div className="flex flex-col justify-center items-center gap-1">
+                        <p className="font-bold text-[50px] text-white">
+                            <AnimatedNumber value={234} />
+                        </p>
+                        <p className="text-sm text-white">
+                            رزرو مشاوره     
+                        </p>
+                    </div>
+                    <div className="flex flex-col justify-center items-center gap-1">
+                        <p className="font-bold text-[50px] text-white">
+                            <AnimatedNumber value={234} />
+                        </p>
+                        <p className="text-sm text-white">
+                            رزرو مشاوره     
+                        </p>
                     </div>
                 </div>
-                <div className={styles.emailInput + " container w-11/12 mx-auto mt-20 text-right flex flex-col justify-end"}>
+            </div>
+
+
+
+            <div className="relative">
+                <img className="w-full" src="../../images/indexblogbackground.png" alt="image" />
+                <div className="absolute container max-w-7xl w-11/12 mx-auto py-20" style={{left:"50%" , top: "50%" , transform: "translate(-50%,-50%"}}>
+                    <p className="text-center font-bold text-2xl">
+                        مجله کانادا
+                    </p>
+                    <div className="flex items-center gap-5 mt-20 mx-auto " style={{direction: "rtl" , width: "max-content"}}>
+                        {blogs?.map((item) => (
+                            <BlogItem image={item?.thumb} title={item?.title} desc={item?.description} slug={item?.id} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+            
+
+            <div className="container max-w-7xl w-11/12 mx-auto flex items-center">
+                <div className="flex flex-col gap-2 items-center justify-center mt-14">
+                    <p className="font-bold text-2xl tex-center">
+                        مارا دنبال کنید 
+                    </p>
+                    <div className="flex gap-2">
+                        <div className="bg-[#5C5C5C] w-[40px] h-[40px] rounded-full flex items-center justify-center">
+                            <svg className="w-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="#ffffff" d="M80 299.3V512H196V299.3h86.5l18-97.8H196V166.9c0-51.7 20.3-71.5 72.7-71.5c16.3 0 29.4 .4 37 1.2V7.9C291.4 4 256.4 0 236.2 0C129.3 0 80 50.5 80 159.4v42.1H14v97.8H80z"/></svg>
+                        </div>
+                        <div className="bg-[#5C5C5C] w-[40px] h-[40px] rounded-full flex items-center justify-center">
+                            <svg className="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#ffffff" d="M459.4 151.7c.3 4.5 .3 9.1 .3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53 51.7 63.7 129.3 105.3 216.4 109.8-1.6-7.8-2.6-15.9-2.6-24 0-57.8 46.8-104.9 104.9-104.9 30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3z"/></svg>
+                        </div>
+                        <div className="bg-[#5C5C5C] w-[40px] h-[40px] rounded-full flex items-center justify-center">
+                            <svg className="w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="#ffffff" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"/></svg>
+                        </div>
+                        <div className="bg-[#5C5C5C] w-[40px] h-[40px] rounded-full flex items-center justify-center">
+                            <svg className="w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="#ffffff" d="M549.7 124.1c-6.3-23.7-24.8-42.3-48.3-48.6C458.8 64 288 64 288 64S117.2 64 74.6 75.5c-23.5 6.3-42 24.9-48.3 48.6-11.4 42.9-11.4 132.3-11.4 132.3s0 89.4 11.4 132.3c6.3 23.7 24.8 41.5 48.3 47.8C117.2 448 288 448 288 448s170.8 0 213.4-11.5c23.5-6.3 42-24.2 48.3-47.8 11.4-42.9 11.4-132.3 11.4-132.3s0-89.4-11.4-132.3zm-317.5 213.5V175.2l142.7 81.2-142.7 81.2z"/></svg>
+                        </div>
+                    </div>
+                </div>
+                <div className={styles.emailInput + " max-w-[500px] ml-auto container max-md:mx-auto w-11/12 mt-20 text-right flex flex-col"}>
                     <p className="mb-2">
                         برای اطلاع از آخرین خبر‌های مهاجرتی، ایمیل خود را ثبت نمایید.
                     </p>
                     <form>
-                        <div className={styles.formgroup + " max-w-[500px] ml-auto relative"}>
-                            <input className="w-full bg-[#EF1B47] text-right text-white p-2" type="text" placeholder="ثبت ایمیل " />
-                            <div onClick={handleSubmit} className="absolute left-0 top-0 border-r border-r-white px-1 py-1">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
-                                    <path d="M3.07627 8.27989C3.0676 8.49118 3.06761 8.72723 3.06763 8.97849V23.9118C3.06761 24.2505 3.06759 24.5616 3.08883 24.8216C3.11174 25.102 3.16417 25.4087 3.31853 25.7116C3.53923 26.1448 3.89139 26.4969 4.32454 26.7176C4.62748 26.872 4.9342 26.9244 5.21456 26.9473C5.4746 26.9686 5.78566 26.9686 6.12436 26.9686H26.3192C26.6579 26.9686 26.969 26.9686 27.229 26.9473C27.5094 26.9244 27.8161 26.872 28.1191 26.7176C28.5522 26.4969 28.9044 26.1448 29.1251 25.7116C29.2794 25.4087 29.3319 25.102 29.3548 24.8216C29.376 24.5616 29.376 24.2505 29.376 23.9118V8.9786C29.376 8.7273 29.376 8.49121 29.3673 8.27989L17.6795 17.8427C16.8315 18.5365 15.6121 18.5365 14.7641 17.8427L3.07627 8.27989Z" fill="white"/>
-                                    <path d="M28.5145 6.42828C28.3924 6.33035 28.26 6.24461 28.1191 6.17278C27.8161 6.01842 27.5094 5.96599 27.229 5.94308C26.969 5.92184 26.658 5.92186 26.3194 5.92188H6.12437C5.78572 5.92186 5.47457 5.92184 5.21456 5.94308C4.9342 5.96599 4.62748 6.01842 4.32454 6.17278C4.18357 6.24461 4.05119 6.33035 3.92912 6.42828L16.0136 16.3155C16.1347 16.4147 16.3089 16.4147 16.43 16.3155L28.5145 6.42828Z" fill="white"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </> : 
-            <>
-                <Points data={homeBenefit} image={homeContents?.founder_image} />
-                <Plans data={programsList} />
-                <div className={styles.smartstart}>
-                    <div className={styles.smartstart__desc}>
-                        <div className={styles.desc}>
-                            <div className={styles.image}>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 72 72" fill="none">
-                                    <path d="M51.0141 0.166664H20.9858C7.94246 0.166664 0.166626 7.9425 0.166626 20.9858V50.9783C0.166626 64.0575 7.94246 71.8333 20.9858 71.8333H50.9783C64.0216 71.8333 71.7975 64.0575 71.7975 51.0142V20.9858C71.8333 7.9425 64.0575 0.166664 51.0141 0.166664ZM59.3275 40.2642C59.3275 42.4142 57.6791 43.4892 55.7083 42.6292L43.7041 37.4692C42.3066 36.8958 41.1958 37.6125 41.1958 39.1175V45.7467C41.1958 46.32 41.5183 47.1442 41.9483 47.5742L47.825 53.4867C48.4341 54.0958 48.7208 55.3142 48.4341 56.1383L47.2875 59.5783C46.7858 61.0833 45.0658 61.8 43.6683 61.0833L37.6841 55.995C36.7525 55.2425 35.2475 55.2425 34.3516 55.995L28.3316 61.0833C26.8983 61.8 25.2141 61.0833 24.7125 59.5425L23.5658 56.1025C23.2791 55.2783 23.5658 54.06 24.175 53.4508L30.1591 47.5742C30.5533 47.18 30.9116 46.3558 30.9116 45.7467V39.1175C30.9116 37.6125 29.765 36.86 28.4033 37.4692L16.3991 42.6292C14.3925 43.4892 12.78 42.4142 12.78 40.2642V36.9317C12.78 35.2117 14.1058 33.205 15.6825 32.5242L29.8008 26.4325C30.3741 26.1817 30.8758 25.4292 30.8758 24.7842V17.3667C30.8758 14.93 32.6316 12.0275 34.8175 10.9525C35.6058 10.5583 36.5016 10.5583 37.29 10.9525C39.44 12.0633 41.2316 14.93 41.2316 17.3667V24.7842C41.2316 25.4292 41.6975 26.1817 42.3066 26.4325L56.425 32.5242C58.0375 33.205 59.3275 35.2117 59.3275 36.9317V40.2642Z" fill="#292D32"/>
-                                </svg>
-                            </div>
-                            <p>
-                                شروعی هوشمند 
-                            </p>
-                        </div>
-                        <div className={styles.btn + " flex flex-col gap-2"}>
-                            <Link href={"/smart-form"}>
-                                <PrimaryBtn>
-                                    فرم ارزیابی 
-                                </PrimaryBtn>
-                            </Link>
-                            <Link href={"/smart-form"}>
-                                <PrimaryBtn>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                        <path d="M20.3672 9.72188H18.6379V8.79958C18.6379 5.05263 15.6115 2.02597 11.8643 2.02597C8.11708 2.02597 5.09067 5.05238 5.09067 8.79958V9.72188H3.36133V8.79958C3.36133 4.10133 7.16583 0.296875 11.864 0.296875C16.5622 0.296875 20.3667 4.10158 20.3667 8.79958L20.3672 9.72188Z" fill="white"/>
-                                        <path d="M5.4365 18.2249H3.30363C1.8048 18.2249 0.594238 17.0144 0.594238 15.5155V11.5668C0.594238 10.068 1.8048 8.85742 3.30363 8.85742H5.4365C5.92652 8.85742 6.3013 9.23218 6.3013 9.72222V17.3604C6.3013 17.8504 5.92654 18.225 5.4365 18.225V18.2249Z" fill="white"/>
-                                        <path d="M20.4244 18.2252H18.2916C17.8015 18.2252 17.4268 17.8504 17.4268 17.3604V9.72222C17.4268 9.2322 17.8015 8.85742 18.2916 8.85742H20.4244C21.9232 8.85742 23.1338 10.068 23.1338 11.5668V15.5155C23.1338 17.0144 21.9232 18.2249 20.4244 18.2249V18.2252Z" fill="white"/>
-                                        <path d="M17.0525 21.2793H14.7466V19.55H17.0525C18.263 19.55 19.2431 18.5699 19.2431 17.3594H20.9724C20.9724 19.521 19.2143 21.2793 17.0525 21.2793Z" fill="white"/>
-                                        <path d="M12.4697 23.5578C10.7116 23.5578 9.29932 22.1454 9.29932 20.4161C9.29932 18.6867 10.7116 17.2744 12.441 17.2744C14.1703 17.2744 15.5827 18.6867 15.5827 20.3873C15.6114 21.1944 15.3232 22.0014 14.7469 22.5779C14.1703 23.212 13.3345 23.5578 12.4697 23.5578V23.5578ZM12.441 19.0038C11.6627 19.0038 11.0286 19.6378 11.0286 20.4161C11.0286 21.1944 11.6917 21.8284 12.4697 21.8284C12.8732 21.8284 13.248 21.6844 13.5073 21.3961C13.7378 21.1366 13.882 20.8196 13.8531 20.4451V20.4163C13.8533 19.6378 13.219 19.0038 12.4409 19.0038L12.441 19.0038Z" fill="white"/>
-                                    </svg>
-                                    رزرو وقت مشاوره 
-                                </PrimaryBtn>
-                            </Link>
-                            <Link href={"/smart-form"}>
-                                <PrimaryBtn>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
-                                        <path d="M9.95534 2.81348C7.2711 2.81348 5.08887 4.99571 5.08887 7.67995C5.08887 10.313 7.14816 12.444 9.8324 12.5362C9.91436 12.5259 9.99632 12.5259 10.0578 12.5362C10.0783 12.5362 10.0885 12.5362 10.109 12.5362C10.1193 12.5362 10.1193 12.5362 10.1295 12.5362C12.7523 12.444 14.8116 10.313 14.8218 7.67995C14.8218 4.99571 12.6396 2.81348 9.95534 2.81348Z" fill="white"/>
-                                        <path d="M15.1599 15.2622C12.3015 13.3566 7.63989 13.3566 4.76098 15.2622C3.45984 16.1331 2.74268 17.3113 2.74268 18.5714C2.74268 19.8316 3.45984 20.9995 4.75074 21.8601C6.18507 22.8232 8.07019 23.3047 9.9553 23.3047C11.8404 23.3047 13.7255 22.8232 15.1599 21.8601C16.4508 20.9893 17.1679 19.8213 17.1679 18.5509C17.1577 17.2908 16.4508 16.1228 15.1599 15.2622Z" fill="white"/>
-                                        <path d="M21.2151 8.28487C21.379 10.2724 19.9652 12.0141 18.0084 12.2498C17.9981 12.2498 17.9981 12.2498 17.9879 12.2498H17.9571C17.8957 12.2498 17.8342 12.2498 17.783 12.2703C16.7892 12.3215 15.8773 12.0039 15.1909 11.4199C16.2462 10.4773 16.8506 9.06351 16.7277 7.52673C16.656 6.69686 16.3691 5.93872 15.9388 5.29327C16.3281 5.09861 16.7789 4.97567 17.24 4.93469C19.248 4.76052 21.0409 6.25632 21.2151 8.28487Z" fill="white"/>
-                                        <path d="M23.264 17.761C23.1821 18.7548 22.5469 19.6154 21.4814 20.1994C20.4569 20.7629 19.166 21.0292 17.8853 20.9985C18.623 20.3326 19.0533 19.5027 19.1352 18.6216C19.2377 17.3512 18.6332 16.132 17.4243 15.1587C16.7378 14.6157 15.9387 14.1854 15.0679 13.8678C17.3321 13.2121 20.1802 13.6527 21.9322 15.0665C22.8747 15.8247 23.3562 16.7775 23.264 17.761Z" fill="white"/>
-                                    </svg>
-                                    ارتباط با کارشناسان 
-                                </PrimaryBtn>
-                            </Link>
-                        </div>
-                    </div>
-                    <div className={styles.smartstart__video}>
-                        {homeContents?.founder_video && (
-                            <video controls>
-                                <source src={domain + homeContents?.founder_video.substring(1)} type="video/mp4" />
-                            </video>
-                        )}
-                    </div>
-                </div>
-                <HomeSlider data={favoriteBlogs} />
-                <div className={styles.emailInput + " container w-11/12 mx-auto mt-20 text-right flex flex-col justify-end"}>
-                    <p className="mb-2">
-                        برای اطلاع از آخرین خبر‌های مهاجرتی، ایمیل خود را ثبت نمایید.
-                    </p>
-                    <form>
-                        <div className={styles.formgroup + " cursor-pointer max-w-[500px] ml-auto relative"}>
-                            <input 
-                                className="w-full bg-[#EF1B47] text-right text-white p-2" 
-                                type="text" 
-                                placeholder="ثبت ایمیل " 
+                        <div className={styles.formgroup + " relative"}>
+                            <input
+                                className="w-full bg-[#525252] text-right text-black p-2"
+                                type="text"
+                                placeholder="ثبت ایمیل "
                                 value={email}
                                 onChange={handleInputChange}
                             />
-                            <div onClick={handleSubmit} className="cursor-pointer absolute left-0 top-0 border-r border-r-white px-1 py-1">
+                            <div onClick={handleSubmit} className="cursor-pointer absolute left-0 top-0 border-r border-r-[#fff] px-1 py-[3px]">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="33" viewBox="0 0 32 33" fill="none">
-                                    <path d="M3.07627 8.27989C3.0676 8.49118 3.06761 8.72723 3.06763 8.97849V23.9118C3.06761 24.2505 3.06759 24.5616 3.08883 24.8216C3.11174 25.102 3.16417 25.4087 3.31853 25.7116C3.53923 26.1448 3.89139 26.4969 4.32454 26.7176C4.62748 26.872 4.9342 26.9244 5.21456 26.9473C5.4746 26.9686 5.78566 26.9686 6.12436 26.9686H26.3192C26.6579 26.9686 26.969 26.9686 27.229 26.9473C27.5094 26.9244 27.8161 26.872 28.1191 26.7176C28.5522 26.4969 28.9044 26.1448 29.1251 25.7116C29.2794 25.4087 29.3319 25.102 29.3548 24.8216C29.376 24.5616 29.376 24.2505 29.376 23.9118V8.9786C29.376 8.7273 29.376 8.49121 29.3673 8.27989L17.6795 17.8427C16.8315 18.5365 15.6121 18.5365 14.7641 17.8427L3.07627 8.27989Z" fill="white"/>
-                                    <path d="M28.5145 6.42828C28.3924 6.33035 28.26 6.24461 28.1191 6.17278C27.8161 6.01842 27.5094 5.96599 27.229 5.94308C26.969 5.92184 26.658 5.92186 26.3194 5.92188H6.12437C5.78572 5.92186 5.47457 5.92184 5.21456 5.94308C4.9342 5.96599 4.62748 6.01842 4.32454 6.17278C4.18357 6.24461 4.05119 6.33035 3.92912 6.42828L16.0136 16.3155C16.1347 16.4147 16.3089 16.4147 16.43 16.3155L28.5145 6.42828Z" fill="white"/>
+                                    <path d="M3.077 8.27989C3.06833 8.49118 3.06834 8.72723 3.06836 8.97849V23.9118C3.06834 24.2505 3.06832 24.5616 3.08956 24.8216C3.11247 25.102 3.16491 25.4087 3.31927 25.7116C3.53996 26.1448 3.89212 26.4969 4.32527 26.7176C4.62822 26.872 4.93494 26.9244 5.21529 26.9473C5.47533 26.9686 5.78639 26.9686 6.12509 26.9685H26.32C26.6587 26.9686 26.9697 26.9686 27.2298 26.9473C27.5101 26.9244 27.8168 26.872 28.1198 26.7176C28.5529 26.4969 28.9051 26.1448 29.1258 25.7116C29.2802 25.4087 29.3326 25.102 29.3555 24.8216C29.3767 24.5616 29.3767 24.2505 29.3767 23.9118V8.9786C29.3767 8.7273 29.3767 8.49121 29.3681 8.27989L17.6802 17.8427C16.8323 18.5365 15.6128 18.5365 14.7648 17.8427L3.077 8.27989Z" fill="white"/>
+                                    <path d="M28.5152 6.42828C28.3931 6.33035 28.2608 6.24461 28.1198 6.17278C27.8168 6.01842 27.5101 5.96599 27.2298 5.94308C26.9698 5.92184 26.6587 5.92186 26.3201 5.92188H6.12511C5.78646 5.92186 5.4753 5.92184 5.21529 5.94308C4.93494 5.96599 4.62822 6.01842 4.32527 6.17278C4.18431 6.24461 4.05192 6.33035 3.92985 6.42828L16.0143 16.3155C16.1354 16.4147 16.3096 16.4147 16.4308 16.3155L28.5152 6.42828Z" fill="white"/>
                                 </svg>
                             </div>
                         </div>
                     </form>
                 </div>
-            </>
-            }
-            
+            </div>
 
 
 
-            <Partners data={homePartners} />
+
+            <div className="container max-w-5xl w-11/12 mx-auto mt-20">
+                <div className="flex gap-5 items-end">
+                    <div className="w-4/12 overflow-hidden" data-aos="fade-right" data-aos-duration="1500">
+                        <img className="object-cover w-full" src="../../images/hamideh.png" alt="image" />
+                    </div>
+                    <div className="w-7/12" data-aos="fade-up" data-aos-duration="1500">
+                        <p className="text-center mb-10 text-3xl font-bold">
+                            مهاجرت آسان و مطمئن
+                        </p>
+                        <div className="bg-[#6C6C6C] rounded-lg p-6 text-white flex flex-col gap-4">
+                            <p className="text-center text-lg">
+                                حمیده سادات سکاک
+                            </p>
+                            <p className="text-center text-xs leading-5">
+                                بنیان گذار سازمان مهاجرتی دیار و عضو رسمی شورای قانون گذاری امور مهاجرت کانادا و دانش آموخته رشته مهاجرت کانادا است
+                            </p>
+                            <p className="text-xs mt-3 leading-5">
+                                ما بهترین خدمات را ارائه می دهیم
+                                ما بهترین راه برای موفقیت در مهاجرت شما را ارائه می دهیم
+                                تصمیم به مهاجرت تصمیمی توام با امید و نگرانی است. از این رو سوالات بسیاری در این مسیر برای موکلان ما ایجاد می شود. ما نیز این روزها را سپری کرده ایم و نگرانی های شما را می شناسیم. پرونده شما پس از بررسی و بازنگرهای متعدد و با اطمینان خاطر به اداره مهاجرت ارسال خواهد شد. ما معتقدیم موفقیت شما رمز موفقیت ماست.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div className="w-full mt-[-8px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="1190" height="24" viewBox="0 0 1190 24" fill="none">
+                        <path d="M1178 12H12" stroke="url(#paint0_linear_1976_6057)" stroke-opacity="0.6" stroke-width="23" stroke-linecap="round" />
+                        <defs>
+                            <linearGradient id="paint0_linear_1976_6057" x1="595" y1="12" x2="595" y2="13" gradientUnits="userSpaceOnUse">
+                                <stop stop-color="#FB2D2D" />
+                                <stop offset="1" stop-color="white" stop-opacity="0" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
 
 
             <div className={styles.homemain}>
@@ -375,17 +608,6 @@ const HomePage = () => {
                     </div>
                 </div>
 
-
-
-
-                <div className={styles.indexdesc}>
-                    <div className={styles.indexdesc__vector}>
-                        <p>
-                            دیار
-                        </p>
-                    </div>
-                    <div className={styles.indexdesc__desc} dangerouslySetInnerHTML={{ __html: homeContents?.content_bottom }}></div>
-                </div>
 
 
                 <IndexBanner />

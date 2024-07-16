@@ -81,27 +81,6 @@
             }
         }
     }
-    &__team{
-        max-width: 1000px;
-        width: 90%;
-        margin: 0 auto;
-        display: grid;
-        grid-template-columns: repeat(4,minmax(0,1fr));
-        gap: 15px;
-        
-    }
-    &__video{
-        max-width: 1000px;
-        width: 90%;
-        margin: 0 auto;
-        margin-top: 80px;
-        border-radius: 16px;
-        video{
-            border-radius: 16px;
-            object-fit: cover;
-            width: 100%;
-        }
-    }
 }
 
 
