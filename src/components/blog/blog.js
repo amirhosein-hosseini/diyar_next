@@ -15,7 +15,7 @@ const Blog = () => {
         const fetchData = async () => {
           try {
             const data = await getAllBlogs();
-            setBlogs(data?.data);
+            setBlogs(data?.data?.data);
           } catch (error) {
             console.error("Error fetching data:", error);
           }
@@ -24,6 +24,8 @@ const Blog = () => {
         fetchData();
     }, []);
 
+
+    console.log(blogs)
 
 
 
@@ -47,8 +49,8 @@ const Blog = () => {
             </div>
             <div className={styles.blog__archive}>
                 <div className={styles.blog__archive__body}>
-                    {blogs && blogs.slice(0).map(blog => (
-                        <Link href={"/blog/" + blog?.slug}>
+                    {blogs && blogs?.map(blog => (
+                        <Link href={"/blog/" + blog?.id}>
                             <div className={styles.item}>
                                 <div className={styles.arrow}>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="103" height="104" viewBox="0 0 103 104" fill="none">
@@ -76,7 +78,7 @@ const Blog = () => {
                                     </p>
                                 </div>
                                 <div className={styles.index}>
-                                    <BlogItem banner={blog?.banner} content={blog?.content} created={blog?.created} id={blog?.id} slug={blog?.slug} title={blog?.title}/>
+                                    <BlogItem image={blog?.thumb} content={blog?.content} created={blog?.created} id={blog?.id} slug={blog?.slug} title={blog?.title}/>
                                 </div>
                             </div>
                         </Link>

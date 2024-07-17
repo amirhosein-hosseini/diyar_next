@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import styles from "./styles.module.scss";
 
 
 export default function HeroSlider() {
@@ -18,11 +19,11 @@ export default function HeroSlider() {
   };
   return (
     <Slider {...settings}>
-      <div className="w-full overflow-hidden h-[80vh]">
-        <img className="object-cover w-full" src="../../images/heroslider.png" alt="image" />
+      <div className={styles.heroSliderContainer + " w-full overflow-hidden h-[80vh] max-md:w-11/12 max-md:mx-auto max-md:h-[25vh] max-md:mt-20 max-md:rounded-lg"}>
+        <img className="object-cover w-full h-full" src="../../images/heroslider.png" alt="image" />
       </div>
-      <div className="w-full overflow-hidden h-[80vh]">
-        <img className="object-cover w-full" src="../../images/herobanner2.jpg" alt="image" />
+      <div className={styles.heroSliderContainer + " w-full overflow-hidden h-[80vh] max-md:w-11/12 max-md:mx-auto max-md:h-[25vh] max-md:mt-20 max-md:rounded-lg"}>
+        <img className="object-cover w-full h-full" src="../../images/herobanner2.jpg" alt="image" />
       </div>
     </Slider>
   );

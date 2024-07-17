@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { getAllProgramItemsCategory } from "../../api/programs";
 import Link from "next/link";
+import { getAllCategories } from "../../api/category";
 
 const Footer = () => {
 
@@ -34,8 +34,8 @@ const Footer = () => {
       useEffect(() => {
         const fetchData = async () => {
           try {
-            const data = await getAllProgramItemsCategory();
-            setProgramsList(data?.data);
+            const data = await getAllCategories();
+            setProgramsList(data?.data?.data);
           } catch (error) {
             console.error("Error fetching data:", error);
           }
@@ -93,9 +93,9 @@ const Footer = () => {
                                 دسترسی سریع 
                             </p>
                             <div className="flex flex-col gap-3 text-right">
-                                {programsList?.map((item) => (
-                                    <Link className="text-white text-xs" href={"/program/" + item?.slug}>
-                                        {item?.title_link}  
+                                {programsList?.slice(0,3)?.map((item) => (
+                                    <Link className="text-white text-xs" href={"/program/" + item?.id}>
+                                        {item?.title}  
                                     </Link>
                                 ))}
                             </div>

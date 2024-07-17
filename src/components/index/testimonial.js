@@ -6,10 +6,10 @@ import { domain } from "../../api/domain";
 const Testimonial = ({data}) => {
     return(
         <div className={styles.testimonial}>
-            <div className="flex items-center justify-center">
-                <img src="../../images/testtitle.png" alt="image" />
+            <div className="flex items-center justify-center max-md:max-w-[170px] max-md:overflow-hidden max-md:mx-auto">
+                <img className="max-md:object-cover max-md:w-full" src="../../images/testtitle.png" alt="image" />
             </div>
-            <div className="grid grid-cols-3 mt-10" style={{direction: "rtl"}}>
+            <div className="grid grid-cols-3 mt-10 max-md:flex" style={{direction: "rtl"}}>
                 {data?.map((item) => (
                     <div className={styles.item}>
                         <div className={styles.item__header}>

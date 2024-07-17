@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles.module.scss";
-import { getAllProgramItemsCategory } from "../../api/programs";
 import Link from "next/link";
+import { getAllCategories } from "../../api/category";
 
 const MobileHeader = () => {
 
@@ -12,8 +12,8 @@ const MobileHeader = () => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const data = await getAllProgramItemsCategory();
-            setProgramsList(data?.data);
+            const data = await getAllCategories();
+            setProgramsList(data?.data?.data);
           } catch (error) {
             console.error("Error fetching data:", error);
           }
@@ -45,8 +45,8 @@ const MobileHeader = () => {
                         </div>
                         <div className="flex flex-col justify-end text-right gap-4">
                             {programsList?.map((item) => (
-                                <Link onClick={() => setOpenCategory(!openCategory)} className="text-sm" href={"/program/" + item?.slug}>
-                                    {item?.title_link}
+                                <Link onClick={() => setOpenCategory(!openCategory)} className="text-sm" href={"/program/" + item?.id}>
+                                    {item?.title}
                                 </Link>
                             ))}
                         </div>
@@ -71,13 +71,13 @@ const MobileHeader = () => {
                         </Link>
                     </div>
                     <div className={styles.mobileheader__item}>
-                        <Link href={'/podcast'}>
+                        <Link href={'/job'}>
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M3 18V12C3 9.61305 3.94821 7.32387 5.63604 5.63604C7.32387 3.94821 9.61305 3 12 3C14.3869 3 16.6761 3.94821 18.364 5.63604C20.0518 7.32387 21 9.61305 21 12V18" stroke="#25282B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                 <path d="M21 19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H18C17.4696 21 16.9609 20.7893 16.5858 20.4142C16.2107 20.0391 16 19.5304 16 19V16C16 15.4696 16.2107 14.9609 16.5858 14.5858C16.9609 14.2107 17.4696 14 18 14H21V19ZM3 19C3 19.5304 3.21071 20.0391 3.58579 20.4142C3.96086 20.7893 4.46957 21 5 21H6C6.53043 21 7.03914 20.7893 7.41421 20.4142C7.78929 20.0391 8 19.5304 8 19V16C8 15.4696 7.78929 14.9609 7.41421 14.5858C7.03914 14.2107 6.53043 14 6 14H3V19Z" stroke="#25282B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
                             <p>
-                                پادکست  
+                                فرصت شغلی  
                             </p>
                         </Link>
                     </div>

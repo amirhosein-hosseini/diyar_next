@@ -44,7 +44,7 @@ const Job = () => {
 
     return(
         <>
-            <div className="w-full overflow-hidden">
+            <div className="w-full overflow-hidden max-md:mt-20">
                 <img className="object-cover w-full" src="../../images/jobhero.png" alt="image" />
             </div>
 
@@ -82,7 +82,7 @@ const Job = () => {
                 </div> */}
 
 
-                <div className="grid grid-cols-2 gap-5 mt-20" style={{direction: "rtl"}}>
+                <div className="grid grid-cols-2 gap-5 mt-20 max-md:grid-cols-1" style={{direction: "rtl"}}>
                     {carreers?.map((item) => (
                         <JobItem body={item?.body} country={item?.country} id={item?.id} salary={item?.salary} tag={item?.tag} title={item?.title} type={item?.type} />
                     ))}

@@ -8,6 +8,7 @@ const ProgramSubCategory = () => {
 
     const route = useRouter();
     const [data , setData] = useState(null);
+    const [isMobile, setIsMobile] = useState(false);
 
 
     useEffect(() => {
@@ -23,22 +24,42 @@ const ProgramSubCategory = () => {
       fetchData();
   }, [route.query.slug]);
 
-  console.log(data)
+
+
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+    };
+
+    // Initial check on component mount
+    handleResize();
+
+    // Listen for window resize events
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup function to remove the resize event listener
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
 
     return(
       <>
-        <div className="container max-w-7xl w-11/12 mx-auto mt-10">
+        <div className="container max-w-7xl w-11/12 mx-auto mt-10 max-md:mt-20">
 
 
-          <div className="flex items-center gap-3">
-            <div className="w-1/2">
-              <p className="text-xl font-bold mb-1">
+          <div className="flex items-center gap-3 max-md:flex-col max-md:flex-col-reverse">
+            <div className="w-1/2 max-md:w-full">
+              <p className="text-xl font-bold mb-1 max-md:text-center">
                 {data?.title}
               </p>
-              <p className="text-sm leading-6">
+              <p className="text-sm leading-6 max-md:text-center">
                 {data?.description}
               </p>
-              <div className="flex items-center justify-between mt-6">
+              <div className="flex items-center justify-between mt-6 max-md:flex-col max-md:gap-4">
                 <div className="flex gap-3">
                   <button className="text-xs font-bold text-white bg-[#EF1B47] px-5 py-3 rounded-lg">
                     رزرو وقت مشاوره
@@ -97,13 +118,13 @@ const ProgramSubCategory = () => {
                 </div>
               </div>
             </div>
-            <div className="w-1/2 overflow-hidden max-h-[400px]">
+            <div className="w-1/2 overflow-hidden max-h-[400px] max-md:w-full">
               <img className="object-cover w-full rounded-lg max-h-[400px]" src={data?.banner} alt="image" />
             </div>
           </div>
 
 
-          <div className="w-8/12 bg-[#5C5C5C] ml-auto mt-20 flex items-center gap-3 p-5 rounded-bl-[60px]">
+          <div className="w-8/12 bg-[#5C5C5C] ml-auto mt-20 flex items-center gap-3 p-5 rounded-bl-[60px] max-md:hidden">
             <div>
               <p className="text-white text-xs leading-5">
                 یکی از راه‌های مهاجرت به کانادا اقدام از طریق ویزای ICT کانادا است. ICT مخفف Intra-Company Transfer به معنای انتقال درون شرکتی است. این روش مهاجرتی یکی از زیرگروه‌های برنامه‌ جابجایی بین‌المللی IMP کانادا است.
@@ -117,23 +138,44 @@ const ProgramSubCategory = () => {
           </div>
 
 
-          <div className="flex items-center justify-center mt-20 w-11/12 mx-auto rounded-tr-xl rounded-tl-xl pb-[30px]" style={{background: "rgba(217, 217, 217, 0.50)"}}>
-            <div className="flex items-center gap-2 mt-[-30px] w-full mx-auto px-10 justify-center">
-              {data?.plans?.map((item) => (
-                <div className="p-6 w-1/5 border border-black rounded-lg flex flex-col gap-2 items-center justify-center relative bg-white">
-                  <p className="text-xl text-[#EF1B47] font-bold">
-                    {item?.title}
-                  </p>
-                  <p className="text-[7px]">
-                    {item?.description}
-                  </p>
-                  <p className="absolute bottom-1 left-1 text-[7px] font-bold">
-                    اطلاعات بیشتر 
-                  </p>
+          {isMobile === false ? 
+            <div className="flex items-center justify-center mt-20 w-11/12 mx-auto rounded-tr-xl rounded-tl-xl pb-[30px]" style={{ background: "rgba(217, 217, 217, 0.50)" }}>
+              <div className="flex items-center gap-2 mt-[-30px] w-full mx-auto px-10 justify-center">
+                {data?.plans?.map((item) => (
+                  <div className="p-6 w-1/5 border border-black rounded-lg flex flex-col gap-2 items-center justify-center relative bg-white">
+                    <p className="text-xl text-[#EF1B47] font-bold">
+                      {item?.title}
+                    </p>
+                    <p className="text-[7px]">
+                      {item?.description}
+                    </p>
+                    <p className="absolute bottom-1 left-1 text-[7px] font-bold">
+                      اطلاعات بیشتر
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div> : 
+            <div className="mt-10" style={{ background: "rgba(217, 217, 217, 0.50)" }}>
+              <div className="container w-11/12 mx-auto py-8">
+                <div className="grid grid-cols-2 gap-3">
+                  {data?.plans?.map((item) => (
+                    <div className="p-6 border border-black rounded-lg flex flex-col gap-2 items-center justify-center relative bg-white">
+                      <p className="text-xl text-[#EF1B47] font-bold">
+                        {item?.title}
+                      </p>
+                      <p className="text-[7px]">
+                        {item?.description}
+                      </p>
+                      <p className="absolute bottom-1 left-1 text-[7px] font-bold">
+                        اطلاعات بیشتر
+                      </p>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
             </div>
-          </div>
+          }
 
           <div className="mt-20 w-11/12 mx-auto">
             <div className="text-sm leading-6 text-right" style={{fontFamily: "Yekan Bakh"}}  dangerouslySetInnerHTML={{ __html: data?.body}}></div>
